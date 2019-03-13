@@ -14,6 +14,7 @@ public class Main extends Application {
         primaryStage.setTitle("File generator");
         primaryStage.setScene(new Scene(root, 571, 159));
         primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
 
