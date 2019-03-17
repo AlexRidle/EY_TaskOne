@@ -13,8 +13,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("File generator");
         primaryStage.setScene(new Scene(root, 571, 159));
-        primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
 

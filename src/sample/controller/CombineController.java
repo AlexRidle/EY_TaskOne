@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.service.CombineService;
 
 public class CombineController {
 
@@ -55,55 +56,19 @@ public class CombineController {
         });
 
         combineButton.setOnAction(event -> {
-            File combined = new File("combined.txt");
-            File outputDir = new File("generated");
-            File[] sourceFiles = outputDir.listFiles((dir, name) -> {
-                if (name.endsWith(".txt")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-
-
-            PrintWriter writer = null;
-            String pattern = textInput.getText().trim();
-            Pattern ptrn = Pattern.compile(pattern);
-            Matcher matcher;
-            try {
-                writer = new PrintWriter(combined);
-                Scanner scanner;
-
-                for (int i = 0; i < sourceFiles.length; i++) {
-                    String currentLine;
-                    try {
-                        scanner = new Scanner(sourceFiles[i]);
-                        while (scanner.hasNextLine()) {
-                            currentLine = scanner.nextLine();
-                            if(!pattern.equals("")) {
-                                matcher = ptrn.matcher(currentLine);
-                                if (matcher.find()) {
-                                    continue;
-                                }
-                            }
-                            writer.println(currentLine);
-                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                writer.flush();
-                writer.close();
-            }
+            CombineService combineService = new CombineService();
+            combineService.combineFiles(textInput);
             try {
                 switchScene(event, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
+    }
+
+    public TextField getTextInput() {
+        return textInput;
     }
 
     private void switchScene(ActionEvent event, boolean isCanceled) throws IOException {
