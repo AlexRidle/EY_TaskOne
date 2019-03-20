@@ -16,11 +16,11 @@ public class CombineService {
     public void combineFiles(final TextField textInput){
         File combined = new File("combined.txt");
         File outputDir = new File("generated");
-        File[] sourceFiles = outputDir.listFiles((dir, name) -> name.endsWith(".txt"));
+        File[] sourceFiles = outputDir.listFiles((dir, name) -> name.endsWith(".txt")); //gets all txt files from dir
 
 
         PrintWriter writer = null;
-        String pattern = textInput.getText().trim();
+        String pattern = textInput.getText().trim(); //gets pattern
         Pattern ptrn = Pattern.compile(pattern);
         Matcher matcher;
         try {
@@ -34,13 +34,13 @@ public class CombineService {
                     scanner = new Scanner(sourceFile);
                     while (scanner.hasNextLine()) {
                         currentLine = scanner.nextLine();
-                        if (!pattern.equals("")) {
+                        if (!pattern.equals("")) { //just in case if our pattern is empty
                             matcher = ptrn.matcher(currentLine);
                             if (matcher.find()) {
-                                continue;
+                                continue; //if matcher found a coincidence we mustn't write it in file
                             }
                         }
-                        writer.println(currentLine);
+                        writer.println(currentLine); //if all is ok, the line writes in file
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

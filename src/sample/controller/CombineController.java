@@ -49,7 +49,7 @@ public class CombineController {
     void initialize() {
         cancelButton.setOnAction(event -> {
             try {
-                switchScene(event, true);
+                switchScene(event, true); //switch window if button was pressed
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,11 +67,8 @@ public class CombineController {
 
     }
 
-    public TextField getTextInput() {
-        return textInput;
-    }
-
     private void switchScene(ActionEvent event, boolean isCanceled) throws IOException {
+        //switch scene algorithm
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/fxml/sample.fxml"));
         Parent tableViewParent = loader.load();
@@ -80,8 +77,7 @@ public class CombineController {
 
         if(!isCanceled) {
             Controller controller = loader.getController();
-            controller.setOutputLabelText("Successfully combined!");
-            controller.setProgressIndicatorValue(1);
+            controller.appendText("Successfully combined!");
         }
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

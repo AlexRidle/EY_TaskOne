@@ -21,12 +21,12 @@ class LineGenerator {
         char[] randomRus = new char[length];
         char[] randomEng = new char[length];
         for (int i = 0; i < length; i++) {
-            randomEng[i] = engSymbols.charAt(rnd.nextInt(engSymbols.length()));
+            randomEng[i] = engSymbols.charAt(rnd.nextInt(engSymbols.length())); //gets random char from our registered symbols
             randomRus[i] = rusSymbols.charAt(rnd.nextInt(rusSymbols.length()));
         }
 
-        int randomInt = rnd.nextInt(100_000_000/2) *2;
-        String randomDouble = new DecimalFormat("#0.00000000").format(Math.random() * 20);
+        int randomInt = rnd.nextInt(100_000_000/2) *2; //generating random even number
+        String randomDouble = new DecimalFormat("#0.00000000").format(Math.random() * 20); //random decimal with format
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.now();
@@ -34,7 +34,7 @@ class LineGenerator {
         long start = startDate.toEpochDay();
         long end = localDate.toEpochDay();
         long rndDay = ThreadLocalRandom.current().longs(start, end).findAny().getAsLong();
-        String randomDay = (LocalDate.ofEpochDay(rndDay).format(dateTimeFormatter));
+        String randomDay = (LocalDate.ofEpochDay(rndDay).format(dateTimeFormatter)); //gets random day between start and end date
 
         return randomDay + "||"
                 + String.valueOf(randomEng) + "||"
